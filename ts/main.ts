@@ -1,5 +1,11 @@
 /* global data */
 
+interface formElements extends HTMLFormControlsCollection {
+  title: HTMLInputElement;
+  photo: HTMLInputElement;
+  notes: HTMLInputElement;
+}
+
 const $image = document.querySelector('img');
 const $photo = document.querySelector('#photo');
 
@@ -11,4 +17,24 @@ $photo.addEventListener('input', (event: Event) => {
   if ($eventTarget) {
     $image.src = $eventTarget?.value;
   }
+});
+
+const $form = document.querySelector('form') as HTMLFormElement;
+
+$form.addEventListener('submit', (event: Event) => {
+  event.preventDefault();
+  const $formElements = $form.elements as formElements;
+  const entryID = data.nextEntryId;
+  const entries = {
+    entryID: entryID,
+    title: $formElements.title.value,
+    photo: $formElements.photo.value,
+    notes: $formElements.notes.value,
+  };
+  data.nextEntryId += entryID;
+  data.entries.push(entries);
+  console.log('Entries: ', entries);
+  console.log('data', data);
+  $image.src = 'images/placeholder-image-square.jpg';
+  $form.reset();
 });

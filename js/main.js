@@ -12,3 +12,21 @@ $photo.addEventListener('input', (event) => {
         $image.src = $eventTarget?.value;
     }
 });
+const $form = document.querySelector('form');
+$form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const $formElements = $form.elements;
+    const entryID = data.nextEntryId;
+    const entries = {
+        entryID: entryID,
+        title: $formElements.title.value,
+        photo: $formElements.photo.value,
+        notes: $formElements.notes.value,
+    };
+    data.nextEntryId += entryID;
+    data.entries.push(entries);
+    console.log('Entries: ', entries);
+    console.log('data', data);
+    $image.src = 'images/placeholder-image-square.jpg';
+    $form.reset();
+});
