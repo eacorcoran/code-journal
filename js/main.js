@@ -17,16 +17,15 @@ $form.addEventListener('submit', (event) => {
     event.preventDefault();
     const $formElements = $form.elements;
     const entryID = data.nextEntryId;
-    const entries = {
+    const entriesDetail = {
         entryID: entryID,
         title: $formElements.title.value,
         photo: $formElements.photo.value,
         notes: $formElements.notes.value,
     };
-    data.nextEntryId += entryID;
-    data.entries.push(entries);
-    console.log('Entries: ', entries);
-    console.log('data', data);
+    data.entries.push(entriesDetail);
+    data.nextEntryId = entryID + 1;
     $image.src = 'images/placeholder-image-square.jpg';
     $form.reset();
+    writeEntries();
 });
