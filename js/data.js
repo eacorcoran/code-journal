@@ -11,7 +11,6 @@ function writeEntries() {
     localStorage.setItem('journal-entries', entriesJSON);
     localStorage.setItem('nextEntryID', nextEntryJSON);
 }
-;
 function readEntries() {
     let newEntries = [];
     const readJSON = localStorage.getItem('journal-entries');
@@ -67,5 +66,23 @@ function toggleNoEntries() {
         if (!$showMessage)
             throw new Error('$hideEntries is null');
         $showMessage.className = 'show-message';
+    }
+}
+function viewSwap(viewName) {
+    const $entryForm = document.querySelector("div[data-view='entry-form']");
+    const $entriesList = document.querySelector("div[data-view='entries']");
+    if (!$entryForm)
+        throw new Error('$entryForm is null');
+    if (!$entriesList)
+        throw new Error('$entryForm is null');
+    if (viewName === 'entries') {
+        $entryForm.setAttribute('class', 'hidden');
+        $entriesList.setAttribute('class', '');
+        data.view = 'entries';
+    }
+    else if (viewName === 'entry-form') {
+        $entriesList.setAttribute('class', 'hidden');
+        $entryForm.setAttribute('class', '');
+        data.view = 'entry-form';
     }
 }

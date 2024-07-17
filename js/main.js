@@ -29,7 +29,7 @@ $form.addEventListener('submit', (event) => {
     $form.reset();
     writeEntries();
 });
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
     const $ul = document.querySelector('ul');
     if (!$ul)
         throw new Error('The $ul query failed');

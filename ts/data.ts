@@ -1,9 +1,9 @@
 /* exported data */
 interface entryFormat {
-  entryID: number,
-  title: string,
-  photo: string,
-  notes: string,
+  entryID: number;
+  title: string;
+  photo: string;
+  notes: string;
 }
 
 let data = {
@@ -14,11 +14,11 @@ let data = {
 };
 
 function writeEntries(): void {
-    const entriesJSON: string = JSON.stringify(data.entries);
-    const nextEntryJSON: string = JSON.stringify(data.nextEntryId);
-    localStorage.setItem('journal-entries', entriesJSON);
-    localStorage.setItem('nextEntryID', nextEntryJSON);
-};
+  const entriesJSON: string = JSON.stringify(data.entries);
+  const nextEntryJSON: string = JSON.stringify(data.nextEntryId);
+  localStorage.setItem('journal-entries', entriesJSON);
+  localStorage.setItem('nextEntryID', nextEntryJSON);
+}
 
 function readEntries(): entryFormat[] {
   let newEntries: entryFormat[] = [];
@@ -43,7 +43,6 @@ function readNextEntryID(): number {
 }
 
 function renderEntry(entry: entryFormat): HTMLLIElement {
-
   const $entryRow = document.createElement('li');
   $entryRow.setAttribute('class', 'individual-entry');
 
@@ -74,7 +73,7 @@ function renderEntry(entry: entryFormat): HTMLLIElement {
   return $entryRow;
 }
 
-function toggleNoEntries() : void {
+function toggleNoEntries(): void {
   const $hideMessage = document.querySelector('.show-message');
   if ($hideMessage) {
     $hideMessage.className = 'show-no-message';
@@ -82,5 +81,23 @@ function toggleNoEntries() : void {
     const $showMessage = document.querySelector('.show-no-message');
     if (!$showMessage) throw new Error('$hideEntries is null');
     $showMessage.className = 'show-message';
+  }
+}
+
+function viewSwap(viewName: string) {
+  const $entryForm = document.querySelector("div[data-view='entry-form']");
+  const $entriesList = document.querySelector("div[data-view='entries']");
+
+  if (!$entryForm) throw new Error('$entryForm is null');
+  if (!$entriesList) throw new Error('$entryForm is null');
+
+  if (viewName === 'entries') {
+    $entryForm.setAttribute('class', 'hidden');
+    $entriesList.setAttribute('class', '');
+    data.view = 'entries';
+  } else if (viewName === 'entry-form') {
+    $entriesList.setAttribute('class', 'hidden');
+    $entryForm.setAttribute('class', '');
+    data.view = 'entry-form';
   }
 }
