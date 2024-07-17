@@ -38,3 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
         $ul.appendChild($result);
     }
 });
+const $entryToggle = document.querySelector('.nav-item');
+if (!$entryToggle)
+    throw new Error('$entryToggle is null');
+$entryToggle.addEventListener('click', function () {
+    viewSwap('entries');
+});

@@ -15,6 +15,18 @@ header {
   text-align: left;
 }
 
+.nav-item {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21.79px;
+  text-align: left;
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+  align-items: center;
+}
+
 h1 {
   font-family: 'Proza Libre', sans-serif;
   font-size: 30px;
