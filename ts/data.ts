@@ -101,4 +101,5 @@ function viewSwap(viewName: string) {
     $entryForm.setAttribute('class', '');
     data.view = 'entry-form';
   }
+  localStorage.setItem('data-view', data.view);
 }

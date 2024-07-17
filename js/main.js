@@ -34,8 +34,11 @@ $form.addEventListener('submit', (event) => {
     const $newEntry = renderEntry(entriesDetail);
     $ul.prepend($newEntry);
     viewSwap('entries');
-    if (data.nextEntryId >= 1) {
+    if (data.nextEntryId > 1) {
         toggleNoEntries('off');
+    }
+    else {
+        toggleNoEntries('on');
     }
 });
 document.addEventListener('DOMContentLoaded', function () {
@@ -45,6 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 0; i < data.entries.length; i++) {
         const $result = renderEntry(data.entries[i]);
         $ul.appendChild($result);
+    }
+    const $currentDataView = localStorage.getItem('data-view');
+    if (!$currentDataView)
+        throw new Error('$currentDataView is null');
+    viewSwap($currentDataView);
+    if (data.nextEntryId > 1) {
+        toggleNoEntries('off');
+    }
+    else {
+        toggleNoEntries('on');
     }
 });
 const $entryToggle = document.querySelector('.nav-item');
