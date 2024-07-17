@@ -29,3 +29,12 @@ $form.addEventListener('submit', (event) => {
     $form.reset();
     writeEntries();
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const $ul = document.querySelector('ul');
+    if (!$ul)
+        throw new Error('The $ul query failed');
+    for (let i = 0; i < data.entries.length; i++) {
+        const $result = renderEntry(data.entries[i]);
+        $ul.appendChild($result);
+    }
+});
