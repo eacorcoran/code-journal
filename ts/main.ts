@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   for (let i = 0; i < data.entries.length; i++) {
     const $result = renderEntry(data.entries[i]);
-    $ul.appendChild($result);
+    $ul.prepend($result);
   }
 
   const $currentDataView = localStorage.getItem('data-view');
