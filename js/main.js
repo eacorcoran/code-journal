@@ -28,6 +28,15 @@ $form.addEventListener('submit', (event) => {
     $image.src = 'images/placeholder-image-square.jpg';
     $form.reset();
     writeEntries();
+    const $ul = document.querySelector('ul');
+    if (!$ul)
+        throw new Error('The $ul query failed');
+    const $newEntry = renderEntry(entriesDetail);
+    $ul.prepend($newEntry);
+    viewSwap('entries');
+    if (data.nextEntryId >= 1) {
+        toggleNoEntries('off');
+    }
 });
 document.addEventListener('DOMContentLoaded', function () {
     const $ul = document.querySelector('ul');

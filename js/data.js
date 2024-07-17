@@ -56,12 +56,14 @@ function renderEntry(entry) {
     $columnHalf2.appendChild($entryNotes);
     return $entryRow;
 }
-function toggleNoEntries() {
-    const $hideMessage = document.querySelector('.show-message');
-    if ($hideMessage) {
+function toggleNoEntries(toggle) {
+    if (toggle === 'off') {
+        const $hideMessage = document.querySelector('.show-message');
+        if (!$hideMessage)
+            throw new Error('$hidemessage is null');
         $hideMessage.className = 'show-no-message';
     }
-    else {
+    else if (toggle === 'on') {
         const $showMessage = document.querySelector('.show-no-message');
         if (!$showMessage)
             throw new Error('$hideEntries is null');

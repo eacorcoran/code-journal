@@ -73,11 +73,12 @@ function renderEntry(entry: entryFormat): HTMLLIElement {
   return $entryRow;
 }
 
-function toggleNoEntries(): void {
-  const $hideMessage = document.querySelector('.show-message');
-  if ($hideMessage) {
+function toggleNoEntries(toggle: string): void {
+  if (toggle === 'off') {
+    const $hideMessage = document.querySelector('.show-message');
+    if (!$hideMessage) throw new Error('$hidemessage is null');
     $hideMessage.className = 'show-no-message';
-  } else {
+  } else if (toggle === 'on') {
     const $showMessage = document.querySelector('.show-no-message');
     if (!$showMessage) throw new Error('$hideEntries is null');
     $showMessage.className = 'show-message';
