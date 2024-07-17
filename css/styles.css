@@ -74,3 +74,29 @@ textarea {
   text-transform: uppercase;
   margin-top: 10px;
 }
+
+li {
+  float: left;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+h2 {
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: .58px;
+  text-align: left;
+  color: #292929;
+  margin-bottom: 30px;
+}
+
+p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 25.6px;
+  text-align: left;
+  white-space: pre-wrap;
+}

@@ -41,3 +41,35 @@ function readNextEntryID(): number {
   }
   return newEntryID;
 }
+
+function renderEntry(entry: entryFormat): HTMLLIElement {
+
+  const $entryRow = document.createElement('li');
+  $entryRow.setAttribute('class', 'individual-entry');
+
+  const $lineRow = document.createElement('div');
+  $lineRow.setAttribute('class', 'row');
+  $entryRow.appendChild($lineRow);
+
+  const $columnHalf = document.createElement('div');
+  $columnHalf.setAttribute('class', 'column-half');
+  $lineRow.appendChild($columnHalf);
+
+  const $entryImage = document.createElement('img');
+  $entryImage.setAttribute('src', entry.photo);
+  $columnHalf.appendChild($entryImage);
+
+  const $columnHalf2 = document.createElement('div');
+  $columnHalf2.setAttribute('class', 'column-half');
+  $lineRow.appendChild($columnHalf2);
+
+  const $entryTitle = document.createElement('h2');
+  $entryTitle.textContent = entry.title;
+  $columnHalf2.appendChild($entryTitle);
+
+  const $entryNotes = document.createElement('p');
+  $entryNotes.textContent = entry.notes;
+  $columnHalf2.appendChild($entryNotes);
+
+  return $entryRow;
+}

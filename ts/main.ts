@@ -35,5 +35,7 @@ $form.addEventListener('submit', (event: Event) => {
   data.nextEntryId = entryID + 1;
   $image.src = 'images/placeholder-image-square.jpg';
   $form.reset();
+
   writeEntries();
+
 });
