@@ -1,5 +1,12 @@
+.column-full-entry-headings {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding-left: 15px;
+}
+
 body {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 header {
@@ -123,18 +130,13 @@ h3 {
 
 .new-form-entry {
   background-color: #562b81;
-  width: 59px;
-  height: 32px;
-  justify-self: right;
+  width: 50px;
+  height: 25px;
   color: #fff;
   border-radius: 4px;
   text-transform: uppercase;
-  margin-top: 10px;
   text-decoration: none;
-  margin-left: 10px;
   text-align: center;
-  align-content: center;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
-  justify-content: center;
 }

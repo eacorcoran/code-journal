@@ -15,7 +15,8 @@
 }
 
 .column-full,
-.column-half {
+.column-half,
+.column-full-entry-headings {
   width: 100%;
 }
 
