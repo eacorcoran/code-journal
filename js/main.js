@@ -44,3 +44,9 @@ if (!$entryToggle)
 $entryToggle.addEventListener('click', function () {
     viewSwap('entries');
 });
+const $newEntryToggle = document.querySelector('.new-form-entry');
+if (!$newEntryToggle)
+    throw new Error('$newEntryToggle is null');
+$newEntryToggle.addEventListener('click', function () {
+    viewSwap('entry-form');
+});

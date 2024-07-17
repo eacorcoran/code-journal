@@ -120,3 +120,21 @@ h3 {
   line-height: 25.6px;
   text-align: center;
 }
+
+.new-form-entry {
+  background-color: #562b81;
+  width: 59px;
+  height: 32px;
+  justify-self: right;
+  color: #fff;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  text-decoration: none;
+  margin-left: 10px;
+  text-align: center;
+  align-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  justify-content: center;
+}
