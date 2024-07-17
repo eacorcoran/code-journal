@@ -28,4 +28,47 @@ $form.addEventListener('submit', (event) => {
     $image.src = 'images/placeholder-image-square.jpg';
     $form.reset();
     writeEntries();
+    const $ul = document.querySelector('ul');
+    if (!$ul)
+        throw new Error('The $ul query failed');
+    const $newEntry = renderEntry(entriesDetail);
+    $ul.prepend($newEntry);
+    viewSwap('entries');
+    if (data.nextEntryId > 1) {
+        toggleNoEntries('off');
+    }
+    else {
+        toggleNoEntries('on');
+    }
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const $ul = document.querySelector('ul');
+    if (!$ul)
+        throw new Error('The $ul query failed');
+    for (let i = 0; i < data.entries.length; i++) {
+        const $result = renderEntry(data.entries[i]);
+        $ul.prepend($result);
+    }
+    const $currentDataView = localStorage.getItem('data-view');
+    if (!$currentDataView)
+        throw new Error('$currentDataView is null');
+    viewSwap($currentDataView);
+    if (data.nextEntryId > 1) {
+        toggleNoEntries('off');
+    }
+    else {
+        toggleNoEntries('on');
+    }
+});
+const $entryToggle = document.querySelector('.nav-item');
+if (!$entryToggle)
+    throw new Error('$entryToggle is null');
+$entryToggle.addEventListener('click', function () {
+    viewSwap('entries');
+});
+const $newEntryToggle = document.querySelector('.new-form-entry');
+if (!$newEntryToggle)
+    throw new Error('$newEntryToggle is null');
+$newEntryToggle.addEventListener('click', function () {
+    viewSwap('entry-form');
 });

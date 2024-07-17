@@ -1,5 +1,12 @@
+.column-full-entry-headings {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding-left: 15px;
+}
+
 body {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 header {
@@ -15,6 +22,18 @@ header {
   text-align: left;
 }
 
+.nav-item {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21.79px;
+  text-align: left;
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+  align-items: center;
+}
+
 h1 {
   font-family: 'Proza Libre', sans-serif;
   font-size: 30px;
@@ -28,6 +47,7 @@ img {
   height: auto;
   max-width: 100%;
   margin-bottom: 30px;
+  border-radius: 4px;
 }
 
 label {
@@ -53,7 +73,7 @@ textarea {
   width: 100%;
   height: 140px;
   border-radius: 4px;
-  border: 1px solid #B6B6B6;
+  border: 1px solid #b6b6b6;
 }
 
 .right-align {
@@ -72,4 +92,51 @@ textarea {
   border-radius: 4px;
   text-transform: uppercase;
   margin-top: 10px;
+}
+
+li {
+  float: left;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+h2 {
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 0.58px;
+  text-align: left;
+  color: #292929;
+  margin-bottom: 30px;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 25.6px;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 25.6px;
+  text-align: center;
+}
+
+.new-form-entry {
+  background-color: #562b81;
+  width: 50px;
+  height: 25px;
+  color: #fff;
+  border-radius: 4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
 }
