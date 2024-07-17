@@ -100,3 +100,11 @@ p {
   text-align: left;
   white-space: pre-wrap;
 }
+
+h3 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 25.6px;
+  text-align: center;
+}

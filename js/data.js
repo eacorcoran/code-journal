@@ -57,3 +57,15 @@ function renderEntry(entry) {
     $columnHalf2.appendChild($entryNotes);
     return $entryRow;
 }
+function toggleNoEntries() {
+    const $hideMessage = document.querySelector('.show-message');
+    if ($hideMessage) {
+        $hideMessage.className = 'show-no-message';
+    }
+    else {
+        const $showMessage = document.querySelector('.show-no-message');
+        if (!$showMessage)
+            throw new Error('$hideEntries is null');
+        $showMessage.className = 'show-message';
+    }
+}
