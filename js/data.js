@@ -5,12 +5,14 @@ let data = {
     editing: {},
     nextEntryId: readNextEntryID(),
 };
+/* writing entries (and edits) to local storage */
 function writeEntries() {
     const entriesJSON = JSON.stringify(data.entries);
     const nextEntryJSON = JSON.stringify(data.nextEntryId);
     localStorage.setItem('journal-entries', entriesJSON);
     localStorage.setItem('nextEntryID', nextEntryJSON);
 }
+/* reading entries from local storage */
 function readEntries() {
     let newEntries = [];
     const readJSON = localStorage.getItem('journal-entries');
@@ -22,6 +24,7 @@ function readEntries() {
     }
     return newEntries;
 }
+/* get next entry ID from local storage */
 function readNextEntryID() {
     let newEntryID = 1;
     const readJSON = localStorage.getItem('nextEntryID');
@@ -33,6 +36,7 @@ function readNextEntryID() {
     }
     return newEntryID;
 }
+/* updating the dom tree with new entries */
 function renderEntry(entry) {
     const $entryRow = document.createElement('li');
     $entryRow.setAttribute('class', 'individual-entry');
@@ -68,6 +72,7 @@ function renderEntry(entry) {
     $columnRow2.appendChild($entryNotes);
     return $entryRow;
 }
+/* toggling the default messaging on and off based on if entries exist*/
 function toggleNoEntries(toggle) {
     if (toggle === 'off') {
         const $hideMessage = document.querySelector('.show-message');
@@ -82,6 +87,7 @@ function toggleNoEntries(toggle) {
         $showMessage.className = 'show-message';
     }
 }
+/* function to swap views between entry-form and entries */
 function viewSwap(viewName) {
     const $entryForm = document.querySelector("div[data-view='entry-form']");
     const $entriesList = document.querySelector("div[data-view='entries']");
