@@ -45,6 +45,7 @@ function readNextEntryID(): number {
 function renderEntry(entry: entryFormat): HTMLLIElement {
   const $entryRow = document.createElement('li');
   $entryRow.setAttribute('class', 'individual-entry');
+  $entryRow.setAttribute('data-entry-id', entry.entryID.toString());
 
   const $lineRow = document.createElement('div');
   $lineRow.setAttribute('class', 'row');
@@ -62,13 +63,26 @@ function renderEntry(entry: entryFormat): HTMLLIElement {
   $columnHalf2.setAttribute('class', 'column-half');
   $lineRow.appendChild($columnHalf2);
 
+  const $columnRow1 = document.createElement('div');
+  $columnRow1.setAttribute('class', 'row-pencil');
+  $columnHalf2.appendChild($columnRow1);
+
   const $entryTitle = document.createElement('h2');
   $entryTitle.textContent = entry.title;
-  $columnHalf2.appendChild($entryTitle);
+  $columnRow1.appendChild($entryTitle);
+
+  const $pencilIcon = document.createElement('i');
+  $pencilIcon.setAttribute('style', 'float: right');
+  $pencilIcon.setAttribute('class', 'fa-solid fa-pencil');
+  $columnRow1.appendChild($pencilIcon);
+
+  const $columnRow2 = document.createElement('div');
+  $columnRow2.setAttribute('class', 'row');
+  $columnHalf2.appendChild($columnRow2);
 
   const $entryNotes = document.createElement('p');
   $entryNotes.textContent = entry.notes;
-  $columnHalf2.appendChild($entryNotes);
+  $columnRow2.appendChild($entryNotes);
 
   return $entryRow;
 }
