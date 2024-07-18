@@ -72,3 +72,41 @@ if (!$newEntryToggle)
 $newEntryToggle.addEventListener('click', function () {
     viewSwap('entry-form');
 });
+const $ulList = document.querySelector('ul');
+if (!$ulList)
+    throw new Error('$ulList is null');
+$ulList.addEventListener('click', function (event) {
+    const $EventTarget = event.target;
+    if (!$EventTarget)
+        throw new Error('$eventTarget is null');
+    if ($EventTarget.matches('.fa-solid.fa-pencil')) {
+        viewSwap('entry-form');
+        const $parentLi = $EventTarget.closest('li');
+        if (!$parentLi)
+            throw new Error('$parentLi is null');
+        const $entryID = $parentLi.getAttribute('data-entry-id');
+        if (!$entryID)
+            throw new Error('$entryID is null');
+        data.editing = data.entries[Number($entryID) - 1];
+        const $imagePlaceholder = document.querySelector('img');
+        if (!$imagePlaceholder)
+            throw new Error('$imagePlaceholder is null');
+        $imagePlaceholder.src = data.editing.photo;
+        const $titlePlaceholder = document.querySelector('#title');
+        if (!$titlePlaceholder)
+            throw new Error('$titlePlaceholder is null');
+        $titlePlaceholder.value = data.editing.title;
+        const $photoPlaceholder = document.querySelector('#photo');
+        if (!$photoPlaceholder)
+            throw new Error('$photoPlaceholder is null');
+        $photoPlaceholder.value = data.editing.photo;
+        const $notesPlaceholder = document.querySelector('#notes');
+        if (!$notesPlaceholder)
+            throw new Error('$notesPlaceholder is null');
+        $notesPlaceholder.value = data.editing.notes;
+        const $newentryTitle = document.querySelector('.new-entry-title');
+        if (!$newentryTitle)
+            throw new Error('$newentryTitle is null');
+        $newentryTitle.textContent = 'Edit Entry';
+    }
+});

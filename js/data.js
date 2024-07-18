@@ -2,7 +2,7 @@
 let data = {
     view: 'entry-form',
     entries: readEntries(),
-    editing: null,
+    editing: {},
     nextEntryId: readNextEntryID(),
 };
 function writeEntries() {
@@ -55,8 +55,9 @@ function renderEntry(entry) {
     const $entryTitle = document.createElement('h2');
     $entryTitle.textContent = entry.title;
     $columnRow1.appendChild($entryTitle);
-    const $pencilIcon = document.createElement('i');
+    const $pencilIcon = document.createElement('a');
     $pencilIcon.setAttribute('style', 'float: right');
+    $pencilIcon.setAttribute('href', '#');
     $pencilIcon.setAttribute('class', 'fa-solid fa-pencil');
     $columnRow1.appendChild($pencilIcon);
     const $columnRow2 = document.createElement('div');

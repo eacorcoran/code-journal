@@ -9,7 +9,7 @@ interface entryFormat {
 let data = {
   view: 'entry-form',
   entries: readEntries(),
-  editing: null,
+  editing: {} as entryFormat,
   nextEntryId: readNextEntryID(),
 };
 
@@ -71,8 +71,9 @@ function renderEntry(entry: entryFormat): HTMLLIElement {
   $entryTitle.textContent = entry.title;
   $columnRow1.appendChild($entryTitle);
 
-  const $pencilIcon = document.createElement('i');
+  const $pencilIcon = document.createElement('a');
   $pencilIcon.setAttribute('style', 'float: right');
+  $pencilIcon.setAttribute('href', '#');
   $pencilIcon.setAttribute('class', 'fa-solid fa-pencil');
   $columnRow1.appendChild($pencilIcon);
 
