@@ -3,6 +3,13 @@
    justify-content: space-between;
    align-items: center;
    padding-left: 15px;
+   padding-right: 15px;
+}
+
+.row-pencil {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
 }
 
 body {
@@ -94,12 +101,17 @@ textarea {
   margin-top: 10px;
 }
 
+ul {
+  padding-inline-start: 10px;
+}
+
 li {
-  float: left;
+  float: center;
   width: 100%;
   justify-content: flex-end;
   padding: 10px;
 }
+
 
 h2 {
   font-family: 'Proza Libre', sans-serif;
@@ -139,4 +151,8 @@ h3 {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
+}
+
+a {
+  text-decoration: none;
 }

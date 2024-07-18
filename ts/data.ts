@@ -9,10 +9,11 @@ interface entryFormat {
 let data = {
   view: 'entry-form',
   entries: readEntries(),
-  editing: null,
+  editing: {} as entryFormat,
   nextEntryId: readNextEntryID(),
 };
 
+/* writing entries (and edits) to local storage */
 function writeEntries(): void {
   const entriesJSON: string = JSON.stringify(data.entries);
   const nextEntryJSON: string = JSON.stringify(data.nextEntryId);
@@ -20,6 +21,7 @@ function writeEntries(): void {
   localStorage.setItem('nextEntryID', nextEntryJSON);
 }
 
+/* reading entries from local storage */
 function readEntries(): entryFormat[] {
   let newEntries: entryFormat[] = [];
   const readJSON = localStorage.getItem('journal-entries');
@@ -31,6 +33,7 @@ function readEntries(): entryFormat[] {
   return newEntries;
 }
 
+/* get next entry ID from local storage */
 function readNextEntryID(): number {
   let newEntryID: number = 1;
   const readJSON = localStorage.getItem('nextEntryID');
@@ -42,9 +45,11 @@ function readNextEntryID(): number {
   return newEntryID;
 }
 
+/* updating the dom tree with new entries */
 function renderEntry(entry: entryFormat): HTMLLIElement {
   const $entryRow = document.createElement('li');
   $entryRow.setAttribute('class', 'individual-entry');
+  $entryRow.setAttribute('data-entry-id', entry.entryID.toString());
 
   const $lineRow = document.createElement('div');
   $lineRow.setAttribute('class', 'row');
@@ -62,17 +67,32 @@ function renderEntry(entry: entryFormat): HTMLLIElement {
   $columnHalf2.setAttribute('class', 'column-half');
   $lineRow.appendChild($columnHalf2);
 
+  const $columnRow1 = document.createElement('div');
+  $columnRow1.setAttribute('class', 'row-pencil');
+  $columnHalf2.appendChild($columnRow1);
+
   const $entryTitle = document.createElement('h2');
   $entryTitle.textContent = entry.title;
-  $columnHalf2.appendChild($entryTitle);
+  $columnRow1.appendChild($entryTitle);
+
+  const $pencilIcon = document.createElement('a');
+  $pencilIcon.setAttribute('style', 'float: right');
+  $pencilIcon.setAttribute('href', '#');
+  $pencilIcon.setAttribute('class', 'fa-solid fa-pencil');
+  $columnRow1.appendChild($pencilIcon);
+
+  const $columnRow2 = document.createElement('div');
+  $columnRow2.setAttribute('class', 'row');
+  $columnHalf2.appendChild($columnRow2);
 
   const $entryNotes = document.createElement('p');
   $entryNotes.textContent = entry.notes;
-  $columnHalf2.appendChild($entryNotes);
+  $columnRow2.appendChild($entryNotes);
 
   return $entryRow;
 }
 
+/* toggling the default messaging on and off based on if entries exist*/
 function toggleNoEntries(toggle: string): void {
   if (toggle === 'off') {
     const $hideMessage = document.querySelector('.show-message');
@@ -85,6 +105,7 @@ function toggleNoEntries(toggle: string): void {
   }
 }
 
+/* function to swap views between entry-form and entries */
 function viewSwap(viewName: string) {
   const $entryForm = document.querySelector("div[data-view='entry-form']");
   const $entriesList = document.querySelector("div[data-view='entries']");
