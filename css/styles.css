@@ -1,19 +1,29 @@
 .column-full-entry-headings {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   padding-left: 15px;
-   padding-right: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .row-pencil {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-align {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+  margin-bottom: 100px;
 }
 
 body {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 header {
@@ -81,13 +91,7 @@ textarea {
   height: 140px;
   border-radius: 4px;
   border: 1px solid #b6b6b6;
-}
-
-.right-align {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .submit-button {
@@ -98,7 +102,7 @@ textarea {
   color: #fff;
   border-radius: 4px;
   text-transform: uppercase;
-  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 ul {
@@ -111,7 +115,6 @@ li {
   justify-content: flex-end;
   padding: 10px;
 }
-
 
 h2 {
   font-family: 'Proza Libre', sans-serif;
@@ -155,4 +158,9 @@ h3 {
 
 a {
   text-decoration: none;
+}
+
+.delete-entry {
+  text-decoration: underline;
+  color: red;
 }

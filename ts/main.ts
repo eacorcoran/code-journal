@@ -205,5 +205,17 @@ $ulList.addEventListener('click', function (event) {
     ) as HTMLElement;
     if (!$newentryTitle) throw new Error('$newentryTitle is null');
     $newentryTitle.textContent = 'Edit Entry';
+
+    /* adding delete entry link to edit entry form */
+    const $submitRow = document.querySelector('.right-align');
+    if (!$submitRow) throw new Error('$submitRow is null');
+
+    const $deleteEntry = document.createElement('a') as HTMLElement;
+    $deleteEntry.setAttribute('href', '#');
+    $deleteEntry.setAttribute('class', 'delete-entry');
+    $deleteEntry.textContent = 'Delete Entry';
+
+    $submitRow.prepend($deleteEntry);
   }
+
 });
