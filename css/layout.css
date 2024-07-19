@@ -1,5 +1,6 @@
 .hidden,
-.show-no-message {
+.show-no-message,
+.delete-entry-hidden {
   display: none !important;
 }
 

@@ -94,13 +94,13 @@ function renderEntry(entry: entryFormat): HTMLLIElement {
 
 /* toggling the default messaging on and off based on if entries exist*/
 function toggleNoEntries(toggle: string): void {
-  if (toggle === 'off') {
-    const $hideMessage = document.querySelector('.show-message');
-    if (!$hideMessage) throw new Error('$hidemessage is null');
+
+  const $hideMessage = document.querySelector('.show-message');
+  const $showMessage = document.querySelector('.show-no-message');
+
+  if (toggle === 'off' && $hideMessage?.className === 'show-message') {
     $hideMessage.className = 'show-no-message';
-  } else if (toggle === 'on') {
-    const $showMessage = document.querySelector('.show-no-message');
-    if (!$showMessage) throw new Error('$hideEntries is null');
+  } else if (toggle === 'on' && $showMessage?.className === 'show-no-message') {
     $showMessage.className = 'show-message';
   }
 }
@@ -117,10 +117,99 @@ function viewSwap(viewName: string) {
     $entryForm.setAttribute('class', 'hidden');
     $entriesList.setAttribute('class', '');
     data.view = 'entries';
+    localStorage.setItem('data-view', data.view);
+    /* this will toggle off the placeholder text once there is an entry */
+    const nonullentries = data.entries.filter(isNotNull);
+
+    if (nonullentries.length > 0) {
+      toggleNoEntries('off');
+    } else if (nonullentries.length === 0) {
+      toggleNoEntries('on');
+    }
   } else if (viewName === 'entry-form') {
     $entriesList.setAttribute('class', 'hidden');
     $entryForm.setAttribute('class', '');
     data.view = 'entry-form';
+    localStorage.setItem('data-view', data.view);
   }
-  localStorage.setItem('data-view', data.view);
+}
+
+function isNotNull(entry: {}) {
+  return entry !== null && entry !== undefined;
+}
+
+/* function to populate placeholder info in the form based on the record that is being edited */
+function populatePlaceholder(editing: entryFormat) {
+
+  const $imagePlaceholder = document.querySelector('img');
+  if (!$imagePlaceholder) throw new Error('$imagePlaceholder is null');
+  $imagePlaceholder.src = editing.photo;
+
+  const $titlePlaceholder = document.querySelector(
+    '#title',
+  ) as HTMLInputElement;
+  if (!$titlePlaceholder) throw new Error('$titlePlaceholder is null');
+  $titlePlaceholder.value = editing.title;
+
+  const $photoPlaceholder = document.querySelector(
+    '#photo',
+  ) as HTMLInputElement;
+  if (!$photoPlaceholder) throw new Error('$photoPlaceholder is null');
+  $photoPlaceholder.value = editing.photo;
+
+  const $notesPlaceholder = document.querySelector(
+    '#notes',
+  ) as HTMLInputElement;
+  if (!$notesPlaceholder) throw new Error('$notesPlaceholder is null');
+  $notesPlaceholder.value = editing.notes;
+
+  const $newentryTitle = document.querySelector(
+    '.new-entry-title',
+  ) as HTMLElement;
+  if (!$newentryTitle) throw new Error('$newentryTitle is null');
+  $newentryTitle.textContent = 'Edit Entry';
+}
+
+/* function to create delete entry link and the dialog box to confirm deleting entry */
+function toggleDeleteEntry(toggle:string) {
+  const $deleteEntryOn = document.querySelector('.delete-entry');
+  const $deleteEntryOff = document.querySelector('.delete-entry-hidden');
+
+  if(toggle === 'off' && $deleteEntryOn?.className === 'delete-entry'){
+    $deleteEntryOn.className = 'delete-entry-hidden';
+  } else if (toggle === 'on' && $deleteEntryOff?.className === 'delete-entry-hidden') {
+    $deleteEntryOff.className = 'delete-entry';
+  }
+}
+
+/* function to populate placeholder info in the form based on the record that is being edited */
+function deletePlaceholder() {
+
+  const $imagePlaceholder = document.querySelector('img');
+  if (!$imagePlaceholder) throw new Error('$imagePlaceholder is null');
+  $imagePlaceholder.src = 'images/placeholder-image-square.jpg';
+
+  const $titlePlaceholder = document.querySelector(
+    '#title',
+  ) as HTMLInputElement;
+  if (!$titlePlaceholder) throw new Error('$titlePlaceholder is null');
+  $titlePlaceholder.value = '';
+
+  const $photoPlaceholder = document.querySelector(
+    '#photo',
+  ) as HTMLInputElement;
+  if (!$photoPlaceholder) throw new Error('$photoPlaceholder is null');
+  $photoPlaceholder.value = '';
+
+  const $notesPlaceholder = document.querySelector(
+    '#notes',
+  ) as HTMLInputElement;
+  if (!$notesPlaceholder) throw new Error('$notesPlaceholder is null');
+  $notesPlaceholder.value = '';
+
+  const $newentryTitle = document.querySelector(
+    '.new-entry-title',
+  ) as HTMLElement;
+  if (!$newentryTitle) throw new Error('$newentryTitle is null');
+  $newentryTitle.textContent = 'New Entry';
 }
