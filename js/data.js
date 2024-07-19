@@ -99,11 +99,23 @@ function viewSwap(viewName) {
         $entryForm.setAttribute('class', 'hidden');
         $entriesList.setAttribute('class', '');
         data.view = 'entries';
+        localStorage.setItem('data-view', data.view);
+        /* this will toggle off the placeholder text once there is an entry */
+        const nonullentries = data.entries.filter(isNotNull);
+        if (nonullentries.length > 0) {
+            toggleNoEntries('off');
+        }
+        else if (nonullentries.length === 0) {
+            toggleNoEntries('on');
+        }
     }
     else if (viewName === 'entry-form') {
         $entriesList.setAttribute('class', 'hidden');
         $entryForm.setAttribute('class', '');
         data.view = 'entry-form';
+        localStorage.setItem('data-view', data.view);
     }
-    localStorage.setItem('data-view', data.view);
+}
+function isNotNull(entry) {
+    return entry !== null && entry !== undefined;
 }

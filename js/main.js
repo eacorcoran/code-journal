@@ -51,7 +51,11 @@ $form.addEventListener('submit', (event) => {
             notes: $formElements.notes.value,
         };
         /* updating the entry in the data object with the edits */
-        data.entries[entryID - 1] = entriesDetail;
+        for (let i = 0; i < data.entries.length; i++) {
+            if (data.entries[i].entryID === entryID) {
+                data.entries[i] = entriesDetail;
+            }
+        }
         /* updating the the dom tree with the edits */
         const $liElement = document.querySelector(`li[data-entry-id="${entryID}"]`);
         if (!$liElement)
@@ -77,6 +81,8 @@ $form.addEventListener('submit', (event) => {
         data.editing.title = '';
         data.editing.photo = '';
         data.editing.notes = '';
+        const $deleteEntryClick = document.querySelector('.delete-entry');
+        $deleteEntryClick?.remove();
     }
     /* placeholder image is updated */
     $image.src = 'images/placeholder-image-square.jpg';
@@ -87,10 +93,11 @@ $form.addEventListener('submit', (event) => {
     /* user is taken to the entries view */
     viewSwap('entries');
     /* this will toggle off the placeholder text once there is an entry */
-    if (data.nextEntryId === 2) {
+    const nonullentries = data.entries.filter(isNotNull);
+    if (nonullentries.length > 0) {
         toggleNoEntries('off');
     }
-    else if (data.nextEntryId === 1) {
+    else if (nonullentries.length === 0) {
         toggleNoEntries('on');
     }
 });
@@ -109,11 +116,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!$currentDataView)
         throw new Error('$currentDataView is null');
     viewSwap($currentDataView);
-    /* makes sure messaging is only toggled on if there are no entries */
-    if (data.nextEntryId > 1) {
+    /* this will toggle off the placeholder text once there is an entry */
+    const nonullentries = data.entries.filter(isNotNull);
+    if (nonullentries.length > 0) {
         toggleNoEntries('off');
     }
-    else {
+    else if (nonullentries.length === 0) {
         toggleNoEntries('on');
     }
 });
@@ -131,10 +139,10 @@ if (!$newEntryToggle)
 $newEntryToggle.addEventListener('click', function () {
     viewSwap('entry-form');
 });
+/* event listener for if a user tries to edit an entry */
 const $ulList = document.querySelector('ul');
 if (!$ulList)
     throw new Error('$ulList is null');
-/* event listener for if a user tries to edit an entry */
 $ulList.addEventListener('click', function (event) {
     const $EventTarget = event.target;
     if (!$EventTarget)
@@ -150,7 +158,11 @@ $ulList.addEventListener('click', function (event) {
         if (!$entryID)
             throw new Error('$entryID is null');
         /* updating the editing property of the data object with the entry information that is being edited */
-        data.editing = data.entries[Number($entryID) - 1];
+        for (let i = 0; i < data.entries.length; i++) {
+            if (data.entries[i].entryID === Number($entryID)) {
+                data.editing = data.entries[i];
+            }
+        }
         /* populating placeholder info in the form based on the record that is being edited */
         const $imagePlaceholder = document.querySelector('img');
         if (!$imagePlaceholder)
@@ -181,5 +193,80 @@ $ulList.addEventListener('click', function (event) {
         $deleteEntry.setAttribute('class', 'delete-entry');
         $deleteEntry.textContent = 'Delete Entry';
         $submitRow.prepend($deleteEntry);
+        /* create dialog box to confirm deleting entry */
+        const $dialogBox = document.createElement('dialog');
+        $submitRow.append($dialogBox);
+        const $dialogText = document.createElement('h2');
+        $dialogText.textContent = 'Are you sure you want to delete this entry?';
+        $dialogBox.append($dialogText);
+        const $modalActions = document.createElement('div');
+        $modalActions.setAttribute('class', 'modal-actions');
+        $dialogBox.append($modalActions);
+        const $cancelModal = document.createElement('button');
+        $cancelModal.setAttribute('class', 'dismiss-modal-cancel');
+        $cancelModal.textContent = 'CANCEL';
+        $modalActions.append($cancelModal);
+        const $confirmModal = document.createElement('button');
+        $confirmModal.setAttribute('class', 'dismiss-modal-confirm');
+        $confirmModal.textContent = 'CONFIRM';
+        $modalActions.append($confirmModal);
     }
+    /* event listener for if a user tries to edit an entry */
+    const $dialog = document.querySelector('dialog');
+    if (!$dialog)
+        throw Error('$dialog does not exist');
+    const $deleteEntryClick = document.querySelector('.delete-entry');
+    if (!$deleteEntryClick)
+        throw Error('$deleteEntryClick does not exist');
+    $deleteEntryClick.addEventListener('click', function (event) {
+        const $EventTarget = event.target;
+        if (!$EventTarget)
+            throw new Error('$eventTarget is null');
+        /* checking to make sure that delete-entry is selected */
+        if ($EventTarget.matches('.delete-entry')) {
+            $dialog.showModal();
+        }
+    });
+    /* event listener for if a user tries to cancel deleting */
+    const $dismissModalCancel = document.querySelector('.dismiss-modal-cancel');
+    if (!$dismissModalCancel)
+        throw Error('$dismissModal does not exist');
+    $dismissModalCancel.addEventListener('click', function (event) {
+        const $EventTarget = event.target;
+        if (!$EventTarget)
+            throw new Error('$eventTarget is null');
+        $dialog.close();
+        $deleteEntryClick?.remove();
+    });
+    /* event listener for if a user tries to confirm deleting */
+    const $dismissModalConfirm = document.querySelector('.dismiss-modal-confirm');
+    if (!$dismissModalConfirm)
+        throw Error('$dismissModal does not exist');
+    $dismissModalConfirm.addEventListener('click', function (event) {
+        const $EventTarget = event.target;
+        if (!$EventTarget)
+            throw new Error('$eventTarget is null');
+        const entryIDdelete = data.editing.entryID;
+        const $findEntryDom = document.querySelector(`li[data-entry-id="${entryIDdelete}"]`);
+        if (!$findEntryDom)
+            throw new Error('$findEntryDom is null');
+        const $liDeletion = $findEntryDom.closest('li');
+        $liDeletion?.remove();
+        for (let i = 0; i < data.entries.length; i++) {
+            if (data.entries[i].entryID === entryIDdelete) {
+                data.entries.splice(i, 1);
+            }
+        }
+        console.log(data);
+        localStorage.removeItem('journal-entries');
+        writeEntries();
+        data.editing.entryID = 0;
+        data.editing.title = '';
+        data.editing.photo = '';
+        data.editing.notes = '';
+        $dialog?.remove();
+        $deleteEntryClick?.remove();
+        $dialog.close();
+        viewSwap('entries');
+    });
 });
