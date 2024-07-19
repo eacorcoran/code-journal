@@ -182,8 +182,6 @@ $ulList.addEventListener('click', function (event) {
         /* checking to make sure that delete-entry is selected */
         if ($EventTarget.matches('.delete-entry')) {
             $dialog.showModal();
-            const $bodyElement = document.querySelector('body');
-            $bodyElement?.setAttribute('class', 'blur');
         }
     });
     /* event listener for if a user tries to cancel deleting */
@@ -195,8 +193,6 @@ $ulList.addEventListener('click', function (event) {
         if (!$EventTarget)
             throw new Error('$eventTarget is null');
         $dialog.close();
-        const $bodyElement = document.querySelector('body');
-        $bodyElement?.removeAttribute('class');
     });
     /* event listener for if a user tries to confirm deleting */
     const $dismissModalConfirm = document.querySelector('.dismiss-modal-confirm');
@@ -226,8 +222,6 @@ $ulList.addEventListener('click', function (event) {
         $dialog?.remove();
         $deleteEntryClick?.remove();
         $dialog.close();
-        const $bodyElement = document.querySelector('body');
-        $bodyElement?.removeAttribute('class');
         viewSwap('entries');
     });
 });

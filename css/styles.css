@@ -215,11 +215,6 @@ dialog {
   padding: 7px;
 }
 
-.blur {
-  position: absolute;
-  left:0;
-  top:0;
-  width: 100%;
-  height: 100%;
-  filter: opacity(30%);
+dialog::backdrop {
+  background-color: rgba(41, 41, 41, 0.75);
 }
