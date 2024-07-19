@@ -139,32 +139,36 @@ function populatePlaceholder(editing) {
     $newentryTitle.textContent = 'Edit Entry';
 }
 /* function to create delete entry link and the dialog box to confirm deleting entry */
-function createDialogConfirmation() {
-    const $submitRow = document.querySelector('.right-align');
-    if (!$submitRow)
-        throw new Error('$submitRow is null');
-    const $deleteEntry = document.createElement('a');
-    $deleteEntry.setAttribute('href', '#');
-    $deleteEntry.setAttribute('class', 'delete-entry');
-    $deleteEntry.textContent = 'Delete Entry';
-    $submitRow.prepend($deleteEntry);
-    const $dialogBox = document.createElement('dialog');
-    $submitRow.append($dialogBox);
-    const $dialogText = document.createElement('h2');
-    $dialogText.setAttribute('class', 'h2-modal');
-    $dialogText.textContent = 'Are you sure you want to delete this entry?';
-    $dialogBox.append($dialogText);
-    const $modalActions = document.createElement('div');
-    $modalActions.setAttribute('class', 'modal-actions');
-    $dialogBox.append($modalActions);
-    const $cancelModal = document.createElement('a');
-    $cancelModal.setAttribute('href', '#');
-    $cancelModal.setAttribute('class', 'dismiss-modal-cancel');
-    $cancelModal.textContent = 'CANCEL';
-    $modalActions.append($cancelModal);
-    const $confirmModal = document.createElement('a');
-    $cancelModal.setAttribute('href', '#');
-    $confirmModal.setAttribute('class', 'dismiss-modal-confirm');
-    $confirmModal.textContent = 'CONFIRM';
-    $modalActions.append($confirmModal);
+function toggleDeleteEntry(toggle) {
+    const $deleteEntryOn = document.querySelector('.delete-entry');
+    const $deleteEntryOff = document.querySelector('.delete-entry-hidden');
+    if (toggle === 'off' && $deleteEntryOn?.className === 'delete-entry') {
+        $deleteEntryOn.className = 'delete-entry-hidden';
+    }
+    else if (toggle === 'on' && $deleteEntryOff?.className === 'delete-entry-hidden') {
+        $deleteEntryOff.className = 'delete-entry';
+    }
+}
+/* function to populate placeholder info in the form based on the record that is being edited */
+function deletePlaceholder() {
+    const $imagePlaceholder = document.querySelector('img');
+    if (!$imagePlaceholder)
+        throw new Error('$imagePlaceholder is null');
+    $imagePlaceholder.src = 'images/placeholder-image-square.jpg';
+    const $titlePlaceholder = document.querySelector('#title');
+    if (!$titlePlaceholder)
+        throw new Error('$titlePlaceholder is null');
+    $titlePlaceholder.value = '';
+    const $photoPlaceholder = document.querySelector('#photo');
+    if (!$photoPlaceholder)
+        throw new Error('$photoPlaceholder is null');
+    $photoPlaceholder.value = '';
+    const $notesPlaceholder = document.querySelector('#notes');
+    if (!$notesPlaceholder)
+        throw new Error('$notesPlaceholder is null');
+    $notesPlaceholder.value = '';
+    const $newentryTitle = document.querySelector('.new-entry-title');
+    if (!$newentryTitle)
+        throw new Error('$newentryTitle is null');
+    $newentryTitle.textContent = 'New Entry';
 }

@@ -171,38 +171,45 @@ function populatePlaceholder(editing: entryFormat) {
 }
 
 /* function to create delete entry link and the dialog box to confirm deleting entry */
-function createDialogConfirmation() {
-  const $submitRow = document.querySelector('.right-align');
-  if (!$submitRow) throw new Error('$submitRow is null');
+function toggleDeleteEntry(toggle:string) {
+  const $deleteEntryOn = document.querySelector('.delete-entry');
+  const $deleteEntryOff = document.querySelector('.delete-entry-hidden');
 
-  const $deleteEntry = document.createElement('a') as HTMLElement;
-  $deleteEntry.setAttribute('href', '#');
-  $deleteEntry.setAttribute('class', 'delete-entry');
-  $deleteEntry.textContent = 'Delete Entry';
+  if(toggle === 'off' && $deleteEntryOn?.className === 'delete-entry'){
+    $deleteEntryOn.className = 'delete-entry-hidden';
+  } else if (toggle === 'on' && $deleteEntryOff?.className === 'delete-entry-hidden') {
+    $deleteEntryOff.className = 'delete-entry';
+  }
+}
 
-  $submitRow.prepend($deleteEntry);
+/* function to populate placeholder info in the form based on the record that is being edited */
+function deletePlaceholder() {
 
-  const $dialogBox = document.createElement('dialog') as HTMLElement;
-  $submitRow.append($dialogBox);
+  const $imagePlaceholder = document.querySelector('img');
+  if (!$imagePlaceholder) throw new Error('$imagePlaceholder is null');
+  $imagePlaceholder.src = 'images/placeholder-image-square.jpg';
 
-  const $dialogText = document.createElement('h2') as HTMLElement;
-  $dialogText.setAttribute('class','h2-modal');
-  $dialogText.textContent = 'Are you sure you want to delete this entry?';
-  $dialogBox.append($dialogText);
+  const $titlePlaceholder = document.querySelector(
+    '#title',
+  ) as HTMLInputElement;
+  if (!$titlePlaceholder) throw new Error('$titlePlaceholder is null');
+  $titlePlaceholder.value = '';
 
-  const $modalActions = document.createElement('div') as HTMLDivElement;
-  $modalActions.setAttribute('class', 'modal-actions');
-  $dialogBox.append($modalActions);
+  const $photoPlaceholder = document.querySelector(
+    '#photo',
+  ) as HTMLInputElement;
+  if (!$photoPlaceholder) throw new Error('$photoPlaceholder is null');
+  $photoPlaceholder.value = '';
 
-  const $cancelModal = document.createElement('a') as HTMLElement;
-  $cancelModal.setAttribute('href','#')
-  $cancelModal.setAttribute('class', 'dismiss-modal-cancel');
-  $cancelModal.textContent = 'CANCEL';
-  $modalActions.append($cancelModal);
+  const $notesPlaceholder = document.querySelector(
+    '#notes',
+  ) as HTMLInputElement;
+  if (!$notesPlaceholder) throw new Error('$notesPlaceholder is null');
+  $notesPlaceholder.value = '';
 
-  const $confirmModal = document.createElement('a') as HTMLElement;
-  $cancelModal.setAttribute('href', '#');
-  $confirmModal.setAttribute('class', 'dismiss-modal-confirm');
-  $confirmModal.textContent = 'CONFIRM';
-  $modalActions.append($confirmModal);
+  const $newentryTitle = document.querySelector(
+    '.new-entry-title',
+  ) as HTMLElement;
+  if (!$newentryTitle) throw new Error('$newentryTitle is null');
+  $newentryTitle.textContent = 'New Entry';
 }

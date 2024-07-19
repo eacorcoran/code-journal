@@ -81,8 +81,7 @@ $form.addEventListener('submit', (event) => {
         data.editing.title = '';
         data.editing.photo = '';
         data.editing.notes = '';
-        const $deleteEntryClick = document.querySelector('.delete-entry');
-        $deleteEntryClick?.remove();
+        toggleDeleteEntry('off');
     }
     /* placeholder image is updated */
     $image.src = 'images/placeholder-image-square.jpg';
@@ -150,6 +149,8 @@ $ulList.addEventListener('click', function (event) {
     /* checking to make sure that the click was on the editing pencil */
     if ($EventTarget.matches('.fa-solid.fa-pencil')) {
         viewSwap('entry-form');
+        /* turn on delete entry link and the dialog box to confirm deleting entry */
+        toggleDeleteEntry('on');
         /* getting the parent li element of the pencil icon that was clicked in order to get the date-entry-id */
         const $parentLi = $EventTarget.closest('li');
         if (!$parentLi)
@@ -165,8 +166,6 @@ $ulList.addEventListener('click', function (event) {
         }
         /* populating placeholder info in the form based on the record that is being edited*/
         populatePlaceholder(data.editing);
-        /* creating delete entry link and the dialog box to confirm deleting entry */
-        createDialogConfirmation();
     }
     /* event listener for if a user tries to edit an entry */
     const $dialog = document.querySelector('dialog');
@@ -219,9 +218,9 @@ $ulList.addEventListener('click', function (event) {
         data.editing.title = '';
         data.editing.photo = '';
         data.editing.notes = '';
-        $dialog?.remove();
-        $deleteEntryClick?.remove();
+        toggleDeleteEntry('off');
         $dialog.close();
         viewSwap('entries');
+        deletePlaceholder();
     });
 });
